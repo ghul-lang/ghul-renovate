@@ -29,22 +29,22 @@
   // which is a judgement rather than a version comparison. Automating both
   // ends of that pair is what would run away.
   repositories: [
-    'degory/ghul',
-    'degory/ghul-templates',
-    'degory/ghul-repository-template',
-    'degory/ghul-examples',
-    'degory/ghul-dev',
-    'degory/ghul-mcp',
-    'degory/ghul-vsce',
-    'degory/ghul-debug',
-    'degory/ghul-code-review',
-    'degory/ghul-web-api',
-    'degory/ghul-test',
-    'degory/ghul-playground',
+    'ghul-lang/ghul',
+    'ghul-lang/ghul-templates',
+    'ghul-lang/ghul-repository-template',
+    'ghul-lang/ghul-examples',
+    'ghul-lang/ghul-dev',
+    'ghul-lang/ghul-mcp',
+    'ghul-lang/ghul-vsce',
+    'ghul-lang/ghul-debug',
+    'ghul-lang/ghul-code-review',
+    'ghul-lang/ghul-web-api',
+    'ghul-lang/ghul-test',
+    'ghul-lang/ghul-playground',
 
     // Itself, so the actions its own workflow pins stay current. It publishes
     // nothing and nothing builds against it, so it cannot be part of a loop.
-    'degory/ghul-renovate',
+    'ghul-lang/ghul-renovate',
   ],
 
   // None of them carries a renovate.json, and none needs one: this file is the
@@ -200,7 +200,7 @@
       matchStrings: [
         'ARG GHUL_LANGUAGE_SERVER_VERSION=(?<currentValue>\\S+)',
       ],
-      depNameTemplate: 'degory/ghul-vsce',
+      depNameTemplate: 'ghul-lang/ghul-vsce',
       datasourceTemplate: 'github-releases',
       extractVersionTemplate: '^v(?<version>.*)$',
     },
@@ -296,7 +296,7 @@
       // Nothing is lost by ignoring it. The pin is a local-dev fallback so
       // that `dotnet tool restore` has a compiler at all; CI resolves the
       // bootstrap compiler at run time and never reads it.
-      matchRepositories: ['degory/ghul'],
+      matchRepositories: ['ghul-lang/ghul'],
       matchPackageNames: ['ghul.compiler'],
       enabled: false,
     },
@@ -309,7 +309,7 @@
       // Its own group, because the rule below has to be able to not automerge
       // without dragging this one along: automerge is decided per pull
       // request, so two packages sharing a group share a verdict.
-      matchRepositories: ['degory/ghul'],
+      matchRepositories: ['ghul-lang/ghul'],
       matchPackageNames: ['ghul.runtime'],
       groupName: 'ghul.runtime',
       automerge: true,
@@ -324,7 +324,7 @@
       // A fair place to stop, because the runner's version is the one that
       // affects nothing shipped: it decides how the tests are run, not what
       // the compiler emits.
-      matchRepositories: ['degory/ghul'],
+      matchRepositories: ['ghul-lang/ghul'],
       matchPackageNames: ['ghul.test'],
       groupName: 'ghul.test',
       automerge: false,
