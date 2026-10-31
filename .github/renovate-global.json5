@@ -258,10 +258,12 @@
       // not run under the .NET 11 SDK, so an image bump to it fails every
       // build it touches and sits open until someone closes it. Held at the
       // 10.x line wherever the platform's own version shows up - the SDK and
-      // runtime images, the SDK a global.json names, and the framework's own
-      // packages, which are versioned with it.
+      // runtime images, the devcontainer image a repository builds in, the
+      // SDK a global.json names, and the framework's own packages, which are
+      // versioned with it.
       matchPackageNames: [
         '/^mcr\\.microsoft\\.com\\/dotnet\\//',
+        'mcr.microsoft.com/devcontainers/dotnet',
         'dotnet-sdk',
         'dotnet-runtime',
         '/^Microsoft\\.AspNetCore\\./',
