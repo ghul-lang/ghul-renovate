@@ -344,5 +344,36 @@
       groupName: 'ghul.test',
       automerge: false,
     },
+
+    // ghul-vsce publishes the extension to the Marketplace, Open VSX and npm
+    // on every merge to main, so each merged update is a release, and a run
+    // of them in a row runs into the Marketplace's rate limits. Its updates
+    // are gathered into one pull request a week instead. These come last so
+    // they override the groups above for that repository alone.
+    {
+      // Every package, ghūl's included, in one pull request. The window is a
+      // whole weekend because the workflow runs only on odd days of the
+      // month, and a weekend always holds one.
+      matchRepositories: ['ghul-lang/ghul-vsce'],
+      matchPackageNames: ['*'],
+      groupName: 'weekly updates',
+      schedule: ['every weekend'],
+    },
+    {
+      // Renovate gives lock-file maintenance a branch of its own whatever
+      // its group, so it can't share the weekly pull request. Monthly keeps
+      // it to one extra release a month; the 1st is always an odd day.
+      matchRepositories: ['ghul-lang/ghul-vsce'],
+      matchUpdateTypes: ['lockFileMaintenance'],
+      schedule: ['on the first day of the month'],
+    },
   ],
+
+  // A security update ignores the schedule and the groups above: Renovate
+  // applies this on top of every package rule. Grouping the security updates
+  // of one run into one pull request means a repository like ghul-vsce,
+  // which releases on every merge, releases once for them, not once each.
+  vulnerabilityAlerts: {
+    groupName: 'security updates',
+  },
 }
