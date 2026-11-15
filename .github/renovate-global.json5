@@ -279,6 +279,15 @@
       allowedVersions: '!/^11([.-]|$)/',
     },
     {
+      // Swashbuckle is versioned on its own, but its 11 line belongs to .NET
+      // 11 all the same: Swashbuckle.AspNetCore 11 needs Microsoft.OpenApi
+      // 3.11 or later, and ASP.NET Core 10's Microsoft.AspNetCore.OpenApi
+      // requires a Microsoft.OpenApi below 3, so the two can't be restored
+      // together. Held off 11 in the same form as the rule above.
+      matchPackageNames: ['/^Swashbuckle\\./'],
+      allowedVersions: '!/^11([.-]|$)/',
+    },
+    {
       // FluentAssertions 8 replaces the Apache-2.0 licence with a commercial
       // one, and its assertion classes dropped the single-argument
       // constructors ghul-test's wrappers call, so the major does not compile
